@@ -18,18 +18,12 @@ namespace Dropbox.DataAccess.Sql.Tests
         public FilesRepositoryTests()
         {
             _filesRepository = new FilesRepository(ConnectionString, _usersRepository);
-            TestUser = _usersRepository.Add("test", "test@test.com");
         }
 
         [TestInitialize]
         public void Init()
         {
-            if (TestUser != null)
-            {
-                foreach (var file in _filesRepository.GetUserFiles(TestUser.Id))
-                    _filesRepository.Delete(file.Id);
-            }
-
+            TestUser = _usersRepository.Add("test", "test@test.com");
         }
 
         [TestCleanup]
@@ -39,6 +33,7 @@ namespace Dropbox.DataAccess.Sql.Tests
             {
                 foreach (var file in _filesRepository.GetUserFiles(TestUser.Id))
                     _filesRepository.Delete(file.Id);
+                _usersRepository.Delete(TestUser.Id);
             }
         }
 

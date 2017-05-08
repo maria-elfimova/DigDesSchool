@@ -38,10 +38,5 @@ namespace Dropbox.DataAccess.Sql.Tests
             Assert.AreEqual(newUser.Name, name);
             Assert.AreEqual(newUser.Email, email);
         }
-
-        //[TestMethod]
-        //public void TestMethod1()
-        //{
-        //}
     }
 }
