@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.Model", "Dropbox.Model\Dropbox.Model.csproj", "{9B5D4637-B350-45A1-AE69-D8C068763F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess", "Dropbox.DataAccess\Dropbox.DataAccess.csproj", "{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql", "Dropbox.DataAccess.Sql\Dropbox.DataAccess.Sql.csproj", "{472131BB-0023-42BE-9B3A-470F50B96A99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql.Tests", "Dropbox.DataAccess.Sql.Tests\Dropbox.DataAccess.Sql.Tests.csproj", "{01276135-9111-4963-B729-CD3C6E1EFDD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B5D4637-B350-45A1-AE69-D8C068763F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5D4637-B350-45A1-AE69-D8C068763F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5D4637-B350-45A1-AE69-D8C068763F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5D4637-B350-45A1-AE69-D8C068763F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472131BB-0023-42BE-9B3A-470F50B96A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472131BB-0023-42BE-9B3A-470F50B96A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472131BB-0023-42BE-9B3A-470F50B96A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472131BB-0023-42BE-9B3A-470F50B96A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01276135-9111-4963-B729-CD3C6E1EFDD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01276135-9111-4963-B729-CD3C6E1EFDD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01276135-9111-4963-B729-CD3C6E1EFDD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01276135-9111-4963-B729-CD3C6E1EFDD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
