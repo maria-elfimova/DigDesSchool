@@ -24,7 +24,7 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "insert into Users values (@id, @name, @email)";
+                    command.CommandText = "insert into Users values (@Id, @name, @email)";
                     var userId = Guid.NewGuid();
                     command.Parameters.AddWithValue("@id", userId);
                     command.Parameters.AddWithValue("@name", name);

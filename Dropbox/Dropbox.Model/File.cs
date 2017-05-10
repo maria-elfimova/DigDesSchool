@@ -11,6 +11,5 @@ namespace Dropbox.Model
         public Guid Id { get; set; }
         public User Owner { get; set; }
         public string Name { get; set; }
-        //public byte Content { get; set; }
     }
 }

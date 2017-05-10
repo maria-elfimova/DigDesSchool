@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Dropbox.Model
 {
-    public class Comment
+    public class Share
     {
-        public Guid Id { get; set; }
         public Guid FileId { get; set; }
         public Guid UserId { get; set; }
     }

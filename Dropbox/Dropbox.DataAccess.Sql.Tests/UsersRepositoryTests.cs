@@ -8,7 +8,7 @@ namespace Dropbox.DataAccess.Sql.Tests
     [TestClass]
     public class UsersRepositoryTests
     {
-        private const string ConnectionString = "Data Source=JACK\\SQLEXPRESS01; Initial Catalog=Dropbox;Integrated Security=True;User ID=dbo";
+        private const string ConnectionString = "Data Source=JACK\\SQLEXPRESS01; Initial Catalog=Dropbox;Integrated Security=True";
         private readonly IUsersRepository _usersRepository;
 
         public UsersRepositoryTests()
