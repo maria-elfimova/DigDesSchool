@@ -74,7 +74,7 @@ namespace Dropbox.DataAccess.Sql
                             {
                                 Id = reader.GetGuid(reader.GetOrdinal("id")),
                                 Owner = _usersRepository.Get(reader.GetGuid(reader.GetOrdinal("owner"))),
-                                Name = reader.GetString(reader.GetOrdinal("name"))
+                                Name = reader.GetString(reader.GetOrdinal("name")).Trim()
                             };
                         }
                         throw new ArgumentException("file not found");

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql.Tests", "Dropbox.DataAccess.Sql.Tests\Dropbox.DataAccess.Sql.Tests.csproj", "{01276135-9111-4963-B729-CD3C6E1EFDD5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B4288B62-1BF6-4AD5-A8E5-E7ED62872C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01276135-9111-4963-B729-CD3C6E1EFDD5} = {B4288B62-1BF6-4AD5-A8E5-E7ED62872C26}
 	EndGlobalSection
 EndGlobal

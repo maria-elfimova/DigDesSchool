@@ -28,11 +28,12 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "insert into comments (id, id_file, id_user) values (@id, @id_file, @id_user)";
+                    command.CommandText = "insert into comments (id, id_file, id_user, text) values (@id, @id_file, @id_user, @text)";
                     var id = Guid.NewGuid();
                     command.Parameters.AddWithValue("@id", id);
                     command.Parameters.AddWithValue("@id_file", comment.FileId);
                     command.Parameters.AddWithValue("@id_user", comment.UserId);
+                    command.Parameters.AddWithValue("@text", comment.Text);
 
                     command.ExecuteNonQuery();
                     comment.Id = id;
@@ -48,7 +49,7 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select id, id_file, id_user from comments where id = @id";
+                    command.CommandText = "select id, id_file, id_user, text from comments where id = @id";
                     command.Parameters.AddWithValue("@id", commentId);
                     using (var reader = command.ExecuteReader())
                     {
@@ -58,29 +59,11 @@ namespace Dropbox.DataAccess.Sql
                             {
                                 Id = reader.GetGuid(reader.GetOrdinal("id")),
                                 FileId = reader.GetGuid(reader.GetOrdinal("id_file")),
-                                UserId = reader.GetGuid(reader.GetOrdinal("id_user"))
+                                UserId = reader.GetGuid(reader.GetOrdinal("id_user")),
+                                Text = reader.GetString(reader.GetOrdinal("text"))
                             };
                         }
                         throw new ArgumentException("comment not found");
-                    }
-                }
-            }
-        }
-
-        public string GetText(Guid id)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "select comment from comments where id = @id";
-                    command.Parameters.AddWithValue("@id", id);
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                            return reader.GetSqlString(reader.GetOrdinal("comment")).Value;
-                        throw new ArgumentException($"comment {id} not found");
                     }
                 }
             }
@@ -93,8 +76,8 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "update comments set comment = @comment where id = @id";
-                    command.Parameters.AddWithValue("@comment", text);
+                    command.CommandText = "update comments set text = @text where id = @id";
+                    command.Parameters.AddWithValue("@text", text);
                     command.Parameters.AddWithValue("@id", commentId);
                     command.ExecuteNonQuery();
                 }

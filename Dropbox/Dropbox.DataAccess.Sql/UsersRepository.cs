@@ -24,7 +24,7 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "insert into Users values (@Id, @name, @email)";
+                    command.CommandText = "insert into Users (Id, Name, Email) values (@id, @name, @email)";
                     var userId = Guid.NewGuid();
                     command.Parameters.AddWithValue("@id", userId);
                     command.Parameters.AddWithValue("@name", name);
@@ -61,7 +61,7 @@ namespace Dropbox.DataAccess.Sql
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "select (id, name, email) from Users where id = @id";
+                    command.CommandText = "select Id, Name, Email from Users where id = @id;";
                     command.Parameters.AddWithValue("@id", id);
                     using (var reader = command.ExecuteReader())
                     {

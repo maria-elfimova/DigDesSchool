@@ -11,7 +11,6 @@ namespace Dropbox.DataAccess
     {
         Comment Add(Comment comment);
         Comment GetInfo(Guid commentId);
-        string GetText(Guid id);
         void UpdateText(Guid commentId, string text);
         IEnumerable<Comment> GetFileComments(Guid fileId);
         void Delete(Guid id);

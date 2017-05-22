@@ -11,5 +11,6 @@ namespace Dropbox.Model
         public Guid Id { get; set; }
         public Guid FileId { get; set; }
         public Guid UserId { get; set; }
+        public String Text { get; set; }
     }
 }

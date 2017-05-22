@@ -1,28 +1,35 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using Dropbox.Model;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dropbox.DataAccess.Sql.Tests
 {
     [TestClass]
-    public class FilesRepositoryTests
+    public class SharesRepositoryTest
     {
         private const string ConnectionString = "Data Source=JACK\\SQLEXPRESS01; Initial Catalog=Dropbox;Integrated Security=True";
         private readonly IUsersRepository _usersRepository = new UsersRepository(ConnectionString);
         private readonly IFilesRepository _filesRepository;
+        private readonly ISharesRepository _sharesRepository;
 
         private User TestUser { get; set; }
 
-        public FilesRepositoryTests()
+        public SharesRepositoryTest()
         {
             _filesRepository = new FilesRepository(ConnectionString, _usersRepository);
+            _sharesRepository = new SharesRepository(ConnectionString, _usersRepository, _filesRepository);
         }
 
         [TestInitialize]
         public void Init()
         {
+            if (TestUser != null)
+            {
+                foreach (var file in _filesRepository.GetUserFiles(TestUser.Id))
+                    _filesRepository.Delete(file.Id);
+                _usersRepository.Delete(TestUser.Id);
+            }
             TestUser = _usersRepository.Add("test", "test@test.com");
         }
 
@@ -36,40 +43,29 @@ namespace Dropbox.DataAccess.Sql.Tests
                 _usersRepository.Delete(TestUser.Id);
             }
         }
-
         [TestMethod]
-        public void ShouldCreateAndGetFile()
+        public void ShouldCreateAndGetSharing()
         {
-            //arrange
             var file = new File
             {
-                Name = "testFile",
+                Name = "file",
                 Owner = TestUser
             };
-            //act
-            var newFile = _filesRepository.Add(file);
-            var result = _filesRepository.GetInfo(newFile.Id);
-            //asserts
-            Assert.AreEqual(file.Owner.Id, result.Owner.Id);
-            Assert.AreEqual(file.Name, result.Name);
-        }
-
-        [TestMethod]
-        public void ShoulUpdateFileContent()
-        {
-            //arrange
-            var file = new File
+            file = _filesRepository.Add(file);
+            var user = _usersRepository.Add("Jack", "email@mail.com");
+            var share = new Share()
             {
-                Name = "file with content",
-                Owner = TestUser
+                FileId = file.Id,
+                UserId = user.Id
             };
-            var content = Encoding.UTF8.GetBytes("Hello");
-            var newFile = _filesRepository.Add(file);
-            //act
-            _filesRepository.UpdateContent(newFile.Id, content);
-            var resultContent = _filesRepository.GetContent(newFile.Id);
-            //asserts
-            Assert.IsTrue(content.SequenceEqual(resultContent));
+            _sharesRepository.Add(share);
+            foreach (var result in _sharesRepository.GetUserFiles(user.Id))
+            {
+                Assert.AreEqual(result.Name, file.Name);
+                Assert.AreEqual(result.Owner.Name, file.Owner.Name);
+            }
+            _sharesRepository.Delete(share);
+            _usersRepository.Delete(user.Id);
         }
     }
 }

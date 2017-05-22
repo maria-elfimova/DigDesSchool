@@ -11,6 +11,7 @@ namespace Dropbox.DataAccess
     public interface ISharesRepository
     {
         void Add(Share share);
+        void Delete(Share share);
         IEnumerable<File> GetUserFiles(Guid userId);
     }
 }
