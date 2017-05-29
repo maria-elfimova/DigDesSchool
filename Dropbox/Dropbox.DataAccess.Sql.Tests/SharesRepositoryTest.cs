@@ -58,13 +58,13 @@ namespace Dropbox.DataAccess.Sql.Tests
                 FileId = file.Id,
                 UserId = user.Id
             };
-            _sharesRepository.Add(share);
+            _sharesRepository.Add(user.Id, file.Id);
             foreach (var result in _sharesRepository.GetUserFiles(user.Id))
             {
                 Assert.AreEqual(result.Name, file.Name);
                 Assert.AreEqual(result.Owner.Name, file.Owner.Name);
             }
-            _sharesRepository.Delete(share);
+            _sharesRepository.Delete(file.Id);
             _usersRepository.Delete(user.Id);
         }
     }

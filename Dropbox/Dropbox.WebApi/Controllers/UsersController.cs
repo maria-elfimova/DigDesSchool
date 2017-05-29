@@ -29,19 +29,20 @@ namespace Dropbox.WebApi.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
 
-        [Route("api/users/")]
         [HttpPost]
         public User CreateUser([FromBody]User user)
         {
             return _usersRepository.Add(user.Name, user.Email);
         }
 
+        [Route("api/users/{id}")]
         [HttpGet]
         public User GetUser(Guid id)
         {
             return _usersRepository.Get(id);
         }
 
+        [Route("api/users/{id}")]
         [HttpDelete]
         public void DeleteUser(Guid id)
         {

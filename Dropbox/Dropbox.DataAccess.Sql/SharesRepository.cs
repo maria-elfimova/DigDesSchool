@@ -21,7 +21,7 @@ namespace Dropbox.DataAccess.Sql
             _filesRepository = filesRepository;
         }
 
-        public void Add(Share share)
+        public void Add(Guid userId, Guid fileId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -29,8 +29,8 @@ namespace Dropbox.DataAccess.Sql
                 using (var command = connection.CreateCommand())
                 {
                     command.CommandText = "insert into sharingFiles (id_file, id_user) values (@id_file, @id_user)";
-                    command.Parameters.AddWithValue("@id_file", share.FileId);
-                    command.Parameters.AddWithValue("@id_user", share.UserId);
+                    command.Parameters.AddWithValue("@id_file", fileId);
+                    command.Parameters.AddWithValue("@id_user", userId);
                     command.ExecuteNonQuery();
                 }
             }
@@ -58,16 +58,15 @@ namespace Dropbox.DataAccess.Sql
             }
         }
 
-        public void Delete(Share share)
+        public void Delete(Guid fileId)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "delete from sharingFiles where id_file = @id_file and id_user = @id_user";
-                    command.Parameters.AddWithValue("@id_file", share.FileId);
-                    command.Parameters.AddWithValue("@id_user", share.UserId);
+                    command.CommandText = "delete from sharingFiles where id_file = @id_file";
+                    command.Parameters.AddWithValue("@id_file", fileId);
                     command.ExecuteNonQuery();
                 }
             }

@@ -15,11 +15,13 @@ namespace Dropbox.WebApi.Controllers
         private readonly IUsersRepository _usersRepository = new UsersRepository(ConnectionString);
         private readonly IFilesRepository _filesRepository;
         private readonly ICommentsRepository _commentsRepository;
+        private readonly ISharesRepository _sharesRepository;
 
         public FilesController()
         {
             _filesRepository = new FilesRepository(ConnectionString, _usersRepository);
             _commentsRepository = new CommentsRepository(ConnectionString, _usersRepository, _filesRepository);
+            _sharesRepository = new SharesRepository(ConnectionString, _usersRepository, _filesRepository);
         }
 
         [HttpPost]
@@ -59,6 +61,20 @@ namespace Dropbox.WebApi.Controllers
         public void DeleteFile(Guid id)
         {
             _filesRepository.Delete(id);
+        }
+
+        [HttpPost]
+        [Route("api/files/{id}/SharingFiles")]
+        public void CreateShare(Guid userId, Guid fileId)
+        {
+            _sharesRepository.Add(userId, fileId);
+        }
+
+        [HttpDelete]
+        [Route("api/files/{id}/SharingFiles")]
+        public void DeleteShare(Guid fileId)
+        {
+            _sharesRepository.Delete(fileId);
         }
     }
 }
