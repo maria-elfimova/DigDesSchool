@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.4.9\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +53,10 @@
     <ProjectReference Include="..\Dropbox.DataAccess\Dropbox.DataAccess.csproj">
       <Project>{95e15558-3e66-4e7a-a69b-4fb3aeb2e570}</Project>
       <Name>Dropbox.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropbox.Log\Dropbox.Log.csproj">
+      <Project>{8c1f94db-a2e4-4c08-a433-d87c39993a95}</Project>
+      <Name>Dropbox.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dropbox.Model\Dropbox.Model.csproj">
       <Project>{9b5d4637-b350-45a1-ae69-d8c068763f4a}</Project>

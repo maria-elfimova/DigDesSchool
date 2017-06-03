@@ -37,7 +37,7 @@ namespace Dropbox.DataAccess.Sql.Tests
             //asserts
             Assert.AreEqual(newUser.Name, name);
             Assert.AreEqual(newUser.Email, email);
-            _usersRepository.Delete(newUser.Id);
+            //_usersRepository.Delete(newUser.Id);
         }
     }
 }

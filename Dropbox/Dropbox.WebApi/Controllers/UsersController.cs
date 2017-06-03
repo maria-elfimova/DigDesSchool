@@ -32,7 +32,9 @@ namespace Dropbox.WebApi.Controllers
         [HttpPost]
         public User CreateUser([FromBody]User user)
         {
-            return _usersRepository.Add(user.Name, user.Email);
+            user = _usersRepository.Add(user.Name, user.Email);
+            Log.Logger.ServiceLog.Info("Создан пользователь с id: {0}", user.Id);
+            return user;
         }
 
         [Route("api/users/{id}")]
@@ -46,6 +48,7 @@ namespace Dropbox.WebApi.Controllers
         [HttpDelete]
         public void DeleteUser(Guid id)
         {
+            Log.Logger.ServiceLog.Warn("Удален пользователь с id: {0}", id);
             _usersRepository.Delete(id);
         }
 
@@ -61,13 +64,6 @@ namespace Dropbox.WebApi.Controllers
         public IEnumerable<File> GetUserSharesFiles(Guid id)
         {
             return _sharesRepository.GetUserFiles(id);
-        }
-
-        [HttpPut]
-        [Route("api/users/{id}")]
-        public User UpdateUser(Guid id, [FromBody] User user)
-        {
-            return null;
         }
     }
 }

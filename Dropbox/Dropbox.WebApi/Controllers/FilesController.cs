@@ -27,7 +27,9 @@ namespace Dropbox.WebApi.Controllers
         [HttpPost]
         public File CreateFile(File file)
         {
-            return _filesRepository.Add(file);
+            file = _filesRepository.Add(file);
+            Log.Logger.ServiceLog.Info("Создан файл с id: {0}", file.Id);
+            return file;
         }
 
         [HttpGet]
@@ -46,6 +48,8 @@ namespace Dropbox.WebApi.Controllers
         [Route("api/files/{id}/content")]
         public async Task UpdateFileContent(Guid id)
         {
+            Log.Logger.ServiceLog.Info("Изменено содержание файла с id: {0}", id);
+
             var bytes = await Request.Content.ReadAsByteArrayAsync();
             _filesRepository.UpdateContent(id, bytes);
         }
@@ -60,6 +64,7 @@ namespace Dropbox.WebApi.Controllers
         [HttpDelete]
         public void DeleteFile(Guid id)
         {
+            Log.Logger.ServiceLog.Warn("Удален файл с id: {0}", id);
             _filesRepository.Delete(id);
         }
 
@@ -67,6 +72,7 @@ namespace Dropbox.WebApi.Controllers
         [Route("api/files/{id}/SharingFiles")]
         public void CreateShare(Guid userId, Guid fileId)
         {
+            Log.Logger.ServiceLog.Info("Разрешен доступ для файла с id: {0} для пользователя с id: {0}", fileId, userId);
             _sharesRepository.Add(userId, fileId);
         }
 
@@ -74,6 +80,7 @@ namespace Dropbox.WebApi.Controllers
         [Route("api/files/{id}/SharingFiles")]
         public void DeleteShare(Guid fileId)
         {
+            Log.Logger.ServiceLog.Warn("Удален общий доступ к файлу с id: {0}", fileId);
             _sharesRepository.Delete(fileId);
         }
     }

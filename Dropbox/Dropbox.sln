@@ -8,12 +8,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess", "Dropbox.DataAccess\Dropbox.DataAccess.csproj", "{95E15558-3E66-4E7A-A69B-4FB3AEB2E570}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql", "Dropbox.DataAccess.Sql\Dropbox.DataAccess.Sql.csproj", "{472131BB-0023-42BE-9B3A-470F50B96A99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95} = {8C1F94DB-A2E4-4C08-A433-D87C39993A95}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.DataAccess.Sql.Tests", "Dropbox.DataAccess.Sql.Tests\Dropbox.DataAccess.Sql.Tests.csproj", "{01276135-9111-4963-B729-CD3C6E1EFDD5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B4288B62-1BF6-4AD5-A8E5-E7ED62872C26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.WebApi", "Dropbox.WebApi\Dropbox.WebApi.csproj", "{145E47FF-5A88-40A1-8A4E-526AA512C9C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95} = {8C1F94DB-A2E4-4C08-A433-D87C39993A95}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dropbox.Log", "Dropbox.Log\Dropbox.Log.csproj", "{8C1F94DB-A2E4-4C08-A433-D87C39993A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +49,10 @@ Global
 		{145E47FF-5A88-40A1-8A4E-526AA512C9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{145E47FF-5A88-40A1-8A4E-526AA512C9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{145E47FF-5A88-40A1-8A4E-526AA512C9C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C1F94DB-A2E4-4C08-A433-D87C39993A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,7 +26,9 @@ namespace Dropbox.WebApi.Controllers
         [HttpPost]
         public Comment CreateComment(Comment comment)
         {
-            return _commentsRepository.Add(comment);
+            comment = _commentsRepository.Add(comment);
+            Log.Logger.ServiceLog.Info("Создан комментарий с id: {0}", comment.Id);
+            return comment;
         }
 
         [HttpGet]
@@ -39,6 +41,7 @@ namespace Dropbox.WebApi.Controllers
         [Route("api/comments/{id}/text")]
         public async Task UpdateComment(Guid id)
         {
+            Log.Logger.ServiceLog.Info("Обновлен комментарий с id: {0}", id);
             var text = await Request.Content.ReadAsStringAsync();
             _commentsRepository.UpdateText(id, text);
         }
@@ -46,6 +49,7 @@ namespace Dropbox.WebApi.Controllers
         [HttpDelete]
         public void DeleteComment(Guid id)
         {
+            Log.Logger.ServiceLog.Warn("Удален комментарий с id: {0}", id);
             _commentsRepository.Delete(id);
         }
     }

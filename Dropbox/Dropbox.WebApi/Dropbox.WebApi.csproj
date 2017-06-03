@@ -54,6 +54,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.9\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -118,6 +121,12 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="NLog.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -136,7 +145,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
-    <Compile Include="Controllers\SharesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,6 +181,10 @@
     <ProjectReference Include="..\Dropbox.DataAccess\Dropbox.DataAccess.csproj">
       <Project>{4610A93B-4B54-465B-948F-3DB0FEBB839D}</Project>
       <Name>Dropbox.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dropbox.Log\Dropbox.Log.csproj">
+      <Project>{8c1f94db-a2e4-4c08-a433-d87c39993a95}</Project>
+      <Name>Dropbox.Log</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dropbox.Model\Dropbox.Model.csproj">
       <Project>{F68E382B-5772-4A7F-9034-6813C877E397}</Project>

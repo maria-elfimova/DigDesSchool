@@ -23,49 +23,74 @@ namespace Dropbox.DataAccess.Sql
 
         public Comment Add(Comment comment)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (var command = connection.CreateCommand())
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    command.CommandText = "insert into comments (id, id_file, id_user, text) values (@id, @id_file, @id_user, @text)";
-                    var id = Guid.NewGuid();
-                    command.Parameters.AddWithValue("@id", id);
-                    command.Parameters.AddWithValue("@id_file", comment.FileId);
-                    command.Parameters.AddWithValue("@id_user", comment.UserId);
-                    command.Parameters.AddWithValue("@text", comment.Text);
+                    connection.Open();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = "insert into comments (id, id_file, id_user, text) values (@id, @id_file, @id_user, @text)";
+                        var id = Guid.NewGuid();
+                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@id_file", comment.FileId);
+                        command.Parameters.AddWithValue("@id_user", comment.UserId);
+                        command.Parameters.AddWithValue("@text", comment.Text);
 
-                    command.ExecuteNonQuery();
-                    comment.Id = id;
-                    return comment;
+                        command.ExecuteNonQuery();
+                        comment.Id = id;
+                        return comment;
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                Log.Logger.ServiceLog.Fatal("Не удалось подключиться к базе данных");
+                throw;
             }
         }
 
         public Comment GetInfo(Guid commentId)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using (var command = connection.CreateCommand())
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    command.CommandText = "select id, id_file, id_user, text from comments where id = @id";
-                    command.Parameters.AddWithValue("@id", commentId);
-                    using (var reader = command.ExecuteReader())
+                    connection.Open();
+                    try
                     {
-                        while (reader.Read())
+                        using (var command = connection.CreateCommand())
                         {
-                            return new Comment
+                            command.CommandText = "select id, id_file, id_user, text from comments where id = @id";
+                            command.Parameters.AddWithValue("@id", commentId);
+                            using (var reader = command.ExecuteReader())
                             {
-                                Id = reader.GetGuid(reader.GetOrdinal("id")),
-                                FileId = reader.GetGuid(reader.GetOrdinal("id_file")),
-                                UserId = reader.GetGuid(reader.GetOrdinal("id_user")),
-                                Text = reader.GetString(reader.GetOrdinal("text"))
-                            };
+                                while (reader.Read())
+                                {
+                                    return new Comment
+                                    {
+                                        Id = reader.GetGuid(reader.GetOrdinal("id")),
+                                        FileId = reader.GetGuid(reader.GetOrdinal("id_file")),
+                                        UserId = reader.GetGuid(reader.GetOrdinal("id_user")),
+                                        Text = reader.GetString(reader.GetOrdinal("text"))
+                                    };
+                                }
+                                Log.Logger.ServiceLog.Error("Комментарий с id: {0} не найден", commentId);
+                                throw new ArgumentException("comment not found");
+                            }
                         }
-                        throw new ArgumentException("comment not found");
+                    }
+                    catch
+                    {
+                        Log.Logger.ServiceLog.Error("Ошибка при поиске комментария с id: {0}", commentId);
+                        throw;
                     }
                 }
+            }
+            catch (SqlException)
+            {
+                Log.Logger.ServiceLog.Fatal("Не удалось подключиться к базе данных");
+                throw;
             }
         }
 
