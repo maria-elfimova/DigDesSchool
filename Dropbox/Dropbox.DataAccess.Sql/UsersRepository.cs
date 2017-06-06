@@ -130,5 +130,48 @@ namespace Dropbox.DataAccess.Sql
                 throw new Exception("Can't connect to SQL server");
             }
         }
+
+        public User GetByMail(string email)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = "select Id, Name, Email from Users where Email = @email;";
+                        command.Parameters.AddWithValue("@email", email);
+                        try
+                        {
+                            using (var reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    return new User
+                                    {
+                                        Id = reader.GetGuid(reader.GetOrdinal("id")),
+                                        Email = reader.GetString(reader.GetOrdinal("email")),
+                                        Name = reader.GetString(reader.GetOrdinal("name"))
+                                    };
+                                }
+                                Log.Logger.ServiceLog.Error("Пользователь с адресом: {0} не найден", email);
+                                throw new ArgumentException("user not found");
+                            }
+                        }
+                        catch
+                        {
+                            Log.Logger.ServiceLog.Error("Ошибка при поиске пользователя с адресом: {0}", email);
+                            throw new Exception();
+                        }
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                Log.Logger.ServiceLog.Fatal("Не удалось подключиться к базе данных");
+                throw new Exception("Can't connect to SQL server");
+            }
+        }
     }
 }

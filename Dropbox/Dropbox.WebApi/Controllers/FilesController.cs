@@ -25,6 +25,7 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("api/files/")]
         public File CreateFile(File file)
         {
             file = _filesRepository.Add(file);
@@ -33,6 +34,7 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/files/{id}/content")]
         public byte[] GetFileContent(Guid id)
         {
             return _filesRepository.GetContent(id);
@@ -69,11 +71,11 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("api/files/{id}/SharingFiles")]
-        public void CreateShare(Guid userId, Guid fileId)
+        [Route("api/files/SharingFiles")]
+        public void CreateShare([FromBody]Share share)
         {
-            Log.Logger.ServiceLog.Info("Разрешен доступ для файла с id: {0} для пользователя с id: {0}", fileId, userId);
-            _sharesRepository.Add(userId, fileId);
+            Log.Logger.ServiceLog.Info("Разрешен доступ для файла с id: {0} для пользователя с id: {0}", share.FileId, share.UserId);
+            _sharesRepository.Add(share);
         }
 
         [HttpDelete]

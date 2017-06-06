@@ -59,7 +59,7 @@ namespace Dropbox.WebApi.Controllers
             return _filesRepository.GetUserFiles(id);
         }
 
-        [Route("api/users/{id}/files")]
+        [Route("api/files/SharingFiles/{id}")]
         [HttpGet]
         public IEnumerable<File> GetUserSharesFiles(Guid id)
         {

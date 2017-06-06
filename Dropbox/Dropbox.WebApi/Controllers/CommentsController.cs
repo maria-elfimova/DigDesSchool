@@ -24,6 +24,7 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("api/comments")]
         public Comment CreateComment(Comment comment)
         {
             comment = _commentsRepository.Add(comment);
@@ -32,6 +33,7 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/comments/{id}")]
         public Comment GetComment(Guid id)
         {
             return _commentsRepository.GetInfo(id);
@@ -47,6 +49,7 @@ namespace Dropbox.WebApi.Controllers
         }
 
         [HttpDelete]
+        [Route("api/comments/{id}")]
         public void DeleteComment(Guid id)
         {
             Log.Logger.ServiceLog.Warn("Удален комментарий с id: {0}", id);

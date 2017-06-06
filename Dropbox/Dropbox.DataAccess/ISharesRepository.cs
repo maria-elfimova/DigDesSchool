@@ -9,7 +9,7 @@ namespace Dropbox.DataAccess
 {
     public interface ISharesRepository
     {
-        void Add(Guid userId, Guid fileId);
+        void Add(Share share);
         void Delete(Guid fileId);
         IEnumerable<File> GetUserFiles(Guid userId);
     }

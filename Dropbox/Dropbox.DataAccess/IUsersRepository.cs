@@ -10,8 +10,8 @@ namespace Dropbox.DataAccess
     public interface IUsersRepository
     {
         User Add(string name, string email);
-        //void UpdateInfo(Guid userId, User user);
         void Delete(Guid id);
         User Get(Guid id);
+        User GetByMail(string email);
     }
 }
